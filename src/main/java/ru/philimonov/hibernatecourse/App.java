@@ -14,8 +14,14 @@ public class App {
         try {
             session.beginTransaction();
 
-            Person person = session.get(Person.class, 1);
-            System.out.println("Person: " + person.getName() + ", " + person.getAge());
+            Person person1=new Person("Jackson",54);
+            Person person2=new Person("Fred",40);
+            Person person3=new Person("Miria",25);
+
+            session.save(person1);
+            session.save(person2);
+            session.save(person3);
+
             session.getTransaction().commit();
         } finally {
             sessionFactory.close();
