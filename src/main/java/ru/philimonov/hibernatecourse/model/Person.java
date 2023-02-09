@@ -6,20 +6,34 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Person")
+@Table(name = "Person")
 public class Person {
-    @Column(name="id")
+
+    @Id
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "age")
     private int age;
+
+    public Person() {
+    }
+
+    public Person(int id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Id
-    public int getId() {
-        return id;
     }
 
     public String getName() {
