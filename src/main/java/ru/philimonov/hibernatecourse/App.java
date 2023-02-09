@@ -14,10 +14,11 @@ public class App {
         try {
             session.beginTransaction();
 
-            Person person = session.get(Person.class, 2);
-            session.delete(person);
+            Person person = new Person("Daniel",40);
+            session.save(person);
 
             session.getTransaction().commit();
+            System.out.println("id = " + person.getId());
         } finally {
             sessionFactory.close();
         }
