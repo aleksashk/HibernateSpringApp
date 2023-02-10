@@ -6,10 +6,6 @@ import org.hibernate.cfg.Configuration;
 import ru.philimonov.hibernatecourse.model.Item;
 import ru.philimonov.hibernatecourse.model.Person;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 public class App {
     public static void main(String[] args) {
         Configuration configuration = new Configuration().addAnnotatedClass(Person.class).addAnnotatedClass(Item.class);
@@ -19,12 +15,10 @@ public class App {
         try {
             session.beginTransaction();
 
-            Person person = session.get(Person.class, 2);
-            session.remove(person);
-            List<Item> items = person.getItems();
-            for (Item item : items) {
-                session.remove(item);
-            }
+            Person person = session.get(Person.class, 5);
+            Item item = session.get(Item.class, 1);
+            item.setOwner(person);
+            person.getItems().add(item);
 
             session.getTransaction().commit();
         } finally {
