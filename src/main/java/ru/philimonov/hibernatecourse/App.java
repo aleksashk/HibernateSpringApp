@@ -6,6 +6,8 @@ import org.hibernate.cfg.Configuration;
 import ru.philimonov.hibernatecourse.model.Item;
 import ru.philimonov.hibernatecourse.model.Person;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class App {
@@ -17,9 +19,10 @@ public class App {
         try {
             session.beginTransaction();
 
-            Person person = session.get(Person.class, 2);
-            Item newItem = new Item("Item from Hibernate", person);
-            person.getItems().add(newItem);
+            Person person = new Person("Nickola", 22);
+            Item newItem = new Item("Test Item", person);
+            person.setItems(new ArrayList<Item>(Collections.singletonList(newItem)));
+            session.save(person);
             session.save(newItem);
 
             session.getTransaction().commit();
