@@ -6,6 +6,10 @@ import org.hibernate.cfg.Configuration;
 import ru.philimonov.hibernatecourse.model.Item;
 import ru.philimonov.hibernatecourse.model.Person;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 public class App {
     public static void main(String[] args) {
         Configuration configuration = new Configuration().addAnnotatedClass(Person.class).addAnnotatedClass(Item.class);
@@ -15,13 +19,11 @@ public class App {
         try {
             session.beginTransaction();
 
-            Person person = session.get(Person.class, 4);
-            Item item = session.get(Item.class, 1);
-            item.getOwner().getItems().remove(item);
-            item.setOwner(person);
-            person.getItems().add(item);
-
-            session.getTransaction().commit();
+            Person person = new Person("Test cascading", 28);
+            Item item = new Item("Test cascading item", person);
+            person.setItems(new ArrayList<>(Collections.singletonList(item)));
+            session.persist(person);
+        session.getTransaction().commit();
         } finally {
             sessionFactory.close();
         }
