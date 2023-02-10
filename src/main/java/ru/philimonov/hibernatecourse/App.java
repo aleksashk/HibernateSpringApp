@@ -19,11 +19,12 @@ public class App {
         try {
             session.beginTransaction();
 
-            Person person = new Person("Nickola", 22);
-            Item newItem = new Item("Test Item", person);
-            person.setItems(new ArrayList<Item>(Collections.singletonList(newItem)));
-            session.save(person);
-            session.save(newItem);
+            Person person = session.get(Person.class, 3);
+            List<Item> items = person.getItems();
+            for (Item item : items) {
+                session.remove(item);
+            }
+            person.getItems().clear();
 
             session.getTransaction().commit();
         } finally {
