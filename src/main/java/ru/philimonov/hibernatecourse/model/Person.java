@@ -1,5 +1,7 @@
 package ru.philimonov.hibernatecourse.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +17,7 @@ import java.util.List;
 public class Person {
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Item> items;
 
     @Id

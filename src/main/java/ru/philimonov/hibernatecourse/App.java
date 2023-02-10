@@ -7,7 +7,6 @@ import ru.philimonov.hibernatecourse.model.Item;
 import ru.philimonov.hibernatecourse.model.Person;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class App {
@@ -22,8 +21,8 @@ public class App {
             Person person = new Person("Test cascading", 28);
             Item item = new Item("Test cascading item", person);
             person.setItems(new ArrayList<>(Collections.singletonList(item)));
-            session.persist(person);
-        session.getTransaction().commit();
+            session.save(person);
+            session.getTransaction().commit();
         } finally {
             sessionFactory.close();
         }
