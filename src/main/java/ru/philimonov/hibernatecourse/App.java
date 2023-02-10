@@ -19,12 +19,12 @@ public class App {
         try {
             session.beginTransaction();
 
-            Person person = session.get(Person.class, 3);
+            Person person = session.get(Person.class, 2);
+            session.remove(person);
             List<Item> items = person.getItems();
             for (Item item : items) {
                 session.remove(item);
             }
-            person.getItems().clear();
 
             session.getTransaction().commit();
         } finally {
