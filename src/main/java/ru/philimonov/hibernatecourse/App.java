@@ -16,7 +16,7 @@ public class App {
             session.beginTransaction();
 
             Person person = new Person("Test person", 35);
-            Passport passport = new Passport(person, 14578);
+            Passport passport = new Passport(14578);
             person.setPassport(passport);
             session.save(person);
 
