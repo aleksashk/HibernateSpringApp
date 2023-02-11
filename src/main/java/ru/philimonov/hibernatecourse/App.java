@@ -15,10 +15,8 @@ public class App {
         try {
             session.beginTransaction();
 
-            Person person = new Person("Test person", 35);
-            Passport passport = new Passport(14578);
-            person.setPassport(passport);
-            session.save(person);
+            Person person = session.get(Person.class, 1);
+            System.out.println(person.getPassport().getPassportNumber());
 
             session.getTransaction().commit();
         } finally {
