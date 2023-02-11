@@ -19,9 +19,12 @@ public class App {
         try (sessionFactory) {
             session.beginTransaction();
 
-            Movie movie = session.get(Movie.class, 1);
-            List<Actor> actors = movie.getActors();
-            System.out.println(actors);
+            Movie movie = new Movie("Reservoir Dogs", 1992);
+            Actor actor = session.get(Actor.class, 1);
+            movie.setActors(new ArrayList<>(Collections.singletonList(actor)));
+
+            actor.getMovies().add(movie);
+            session.save(movie);
 
             session.getTransaction().commit();
         }
