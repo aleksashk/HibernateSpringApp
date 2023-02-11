@@ -15,10 +15,11 @@ public class App {
         try (sessionFactory) {
             session.beginTransaction();
 
-            Item item = session.get(Item.class, 1);
-            System.out.println("get an item");
-            System.out.println(item.getOwner());
+            Person person = session.get(Person.class, 1);
+            System.out.println("get a Person");
 
+            System.out.println(person.getItems());
+            session.getTransaction().commit();
         }
 
     }
