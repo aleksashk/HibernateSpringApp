@@ -1,25 +1,19 @@
 package ru.philimonov.hibernatecourse.model;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "Person")
 public class Person {
-
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private List<Item> items;
 
     @Id
     @Column(name = "id")
@@ -31,6 +25,10 @@ public class Person {
 
     @Column(name = "age")
     private int age;
+
+    @OneToOne(mappedBy = "person")
+    @Cascade(CascadeType.SAVE_UPDATE)
+    private Passport passport;
 
     public Person() {
     }
@@ -64,20 +62,12 @@ public class Person {
         this.age = age;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public Passport getPassport() {
+        return passport;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
-    public void addItem(Item item) {
-        if (this.items == null) {
-            this.items = new ArrayList<>();
-        }
-        this.items.add(item);
-        item.setOwner(this);
+    public void setPassport(Passport passport) {
+        this.passport = passport;
     }
 
     @Override
