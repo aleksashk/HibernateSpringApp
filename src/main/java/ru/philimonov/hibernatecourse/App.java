@@ -3,27 +3,22 @@ package ru.philimonov.hibernatecourse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import ru.philimonov.hibernatecourse.model.Actor;
-import ru.philimonov.hibernatecourse.model.Movie;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import ru.philimonov.hibernatecourse.model.Item;
+import ru.philimonov.hibernatecourse.model.Person;
 
 public class App {
     public static void main(String[] args) {
-        Configuration configuration = new Configuration().addAnnotatedClass(Actor.class).addAnnotatedClass(Movie.class);
+        Configuration configuration = new Configuration().addAnnotatedClass(Person.class).addAnnotatedClass(Item.class);
 
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         try (sessionFactory) {
             session.beginTransaction();
 
-            Actor actor = session.get(Actor.class, 2);
-            Movie movieToRemove = actor.getMovies().get(0);
-            actor.getMovies().remove(0);
-            movieToRemove.getActors().remove(actor);
+            Person person = session.get(Person.class, 1);
+            System.out.println("get a Person");
 
+            System.out.println(person.getItems());
             session.getTransaction().commit();
         }
 
