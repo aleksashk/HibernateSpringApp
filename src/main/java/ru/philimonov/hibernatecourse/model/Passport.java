@@ -2,23 +2,28 @@ package ru.philimonov.hibernatecourse.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "Passport")
-public class Passport implements Serializable {
+public class Passport {
 
     @Id
-    @OneToOne
-    @JoinColumn(name="person_id", referencedColumnName = "id")
-    private Person person;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    @Column(name="passport_number")
+    @Column(name = "passport_number")
     private int passportNumber;
+
+    @OneToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    private Person person;
 
     public Passport() {
     }
