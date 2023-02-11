@@ -16,10 +16,7 @@ public class App {
             session.beginTransaction();
 
             Person person = session.get(Person.class, 1);
-            System.out.println(person.getPassport().getPassportNumber());
-            person.setPassport(new Passport(1455789));
-            System.out.println(person.getPassport().getPassportNumber());
-
+            session.delete(person);
             session.getTransaction().commit();
         } finally {
             sessionFactory.close();
